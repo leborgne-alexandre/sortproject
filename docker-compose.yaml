@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+  clean:
+    image: openjdk
+    user: 1000:1000
+    command: find com/esgi -name '*.class' -exec rm {} \;
+    working_dir: /src
+    volumes:
+      - ./src:/src
+
+  compile:
+    image: openjdk
+    user: 1000:1000
+    command: find com/esgi -name '*.java' -exec javac {} \;
+    working_dir: /src
+    volumes:
+      - ./src:/src
+
+  run:
+    image: openjdk
+    user: 1000:1000
+    command: java com/esgi/Main
+    working_dir: /src
+    volumes:
+      - ./src:/src
